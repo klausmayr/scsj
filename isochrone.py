@@ -2,17 +2,21 @@ import requests
 import json
 import geojson
 
-start = 'https://api.mapbox.com/isochrone/v1/mapbox/driving/'
-end = '?contours_minutes=5&contours_colors=6706ce&polygons=true&access_token=[YOUR_MAPBOX_API_KEY]'
+API_KEY = [YOUR_API_KEY]
+geoFile = [YOUR_FILE_PATH]
+export_file_property = [GEOJSON_PROPERTY_FOR_EXPORT_FILE_NAME]
 
-with open('galveston_2022_polling_places.geojson') as f:
+start = 'https://api.mapbox.com/isochrone/v1/mapbox/driving/'
+end = '?contours_minutes=10&contours_colors=6706ce&polygons=true&access_token=' + API_KEY
+
+with open(geoFile) as f:
     gj = geojson.load(f)
 
 for i in gj['features']:
     ft = i['geometry']['coordinates']
-    name = i['properties']['POLL PLACE']
+    name = i['properties'][export_file_property]
     name = name.replace(" ", "_")
-    file = name + ".geojson"
+    file = "2020_" + name + ".geojson"
     coords = str(ft)
     coords = coords.replace(" ", "")
     coords = coords.replace("[", "")
