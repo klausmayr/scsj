@@ -1,3 +1,6 @@
+# R script to see whether there were any voters that were denied registration after voting in the 2022 primary or general election.
+
+
 library(readr)
 library(dplyr)
 library(tidyr)
